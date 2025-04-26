@@ -8,7 +8,6 @@ mod structs;
 pub fn to_hash_map(input: Tok1) -> Tok1 {
     let input: structs::InputStruct = parse(input).unwrap();
     eprintln!("{input:?}");
-    eprintln!("{}", input.to_string());
     let name = input.name.to_string();
     let value = input.value;
     quote!(

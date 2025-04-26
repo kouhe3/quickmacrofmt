@@ -4,6 +4,7 @@ use std::{
     io::{self, BufRead},
 };
 mod structs;
+use structs::InputStruct;
 fn main() {
     let input_file = "src/main.rs";
     let f = fs::File::open(input_file).unwrap();
@@ -15,7 +16,7 @@ fn main() {
         .iter()
         .map(|s| s.to_string())
         .collect();
-    let token_tree = structs::InputStruct::parse_string(s).unwrap();
+    let token_tree = InputStruct::parse_string(s).unwrap();
     let fmted = token_tree.to_string();
     let tmp_file_path = "src/main.tmp.rs";
     let mut tmp_file = fs::File::create(tmp_file_path).unwrap();
@@ -25,4 +26,15 @@ fn main() {
         writeln!(tmp_file, "{l}").unwrap();
     }
     tmp_file.flush().unwrap();
+}
+
+impl ToString for InputStruct {
+    fn to_string(&self) -> String {
+        format!("{}: {}", self.name, self.value)
+    }
+}
+impl InputStruct{
+    pub fn parse_string(s: String) -> syn::Result<Self> {
+        syn::parse_str(&s)
+    }
 }

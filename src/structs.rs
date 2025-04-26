@@ -32,13 +32,3 @@ impl Parse for InputStruct {
     }
 }
 
-impl ToString for InputStruct {
-    fn to_string(&self) -> String {
-        format!("{}: {}", self.name, self.value)
-    }
-}
-impl InputStruct{
-    pub fn parse_string(s: String) -> syn::Result<Self> {
-        syn::parse_str(&s)
-    }
-}
